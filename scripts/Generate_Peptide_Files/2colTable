@@ -1,0 +1,27 @@
+#!/bin/bash
+
+awk '
+{
+ count[$1 " " $2]++
+}
+!($1 in col){
+ col[$1]=1
+}
+!($2 in row){
+ row[$2]=1
+}
+END{
+ printf ".";
+ for (c in col){
+  printf "\t%s",c
+ }
+ printf "\n";
+ for (r in row){
+  printf "%s",r;
+  for (c in col){
+   printf "\t%i",count[c " " r]
+  }
+  printf "\n"
+ }
+}'
+
