@@ -62,6 +62,8 @@ This function temporally monitors the diversification of selected T cell epitope
 ### Suggested command: 
 ./EPITRACK.sh --script Alternative_peptide_tracker.sh -z yes -o RESULTS_ALTERNATIVE_PEPTIDES
 
+### Output:
+![alt text](Git_Images/Alternative_peptides.png)
 
 ## Peptide Lineage Tracker
 This function performs an in-depth analysis of the top lineages/Variants Of Concerns (VOCs) responsible for the diversification of selected epitopes
