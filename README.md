@@ -79,6 +79,8 @@ This function performs an in-depth analysis of the top lineages/Variants Of Conc
 ### suggested command: 
 ./EPITRACK.sh --script Alternative_peptide_tracker.sh -o RESULTS_LINEAGE_TRACKING
 
+### Output:
+![alt text](Git_Images/Lineage_tracker.png)
 
 ## Peptide Map Generator
 This function enable the geo-temporal visualization of peptide diversification.
@@ -96,5 +98,6 @@ This function enable the geo-temporal visualization of peptide diversification.
 ### suggested command:
 ./EPITRACK.sh --script Peptide_Map_Generator.sh -g Europe -s yes -o RESULTS_MAP
 
-
+### Output:
+![alt text](Git_Images/Peptide_Map.png)
 
