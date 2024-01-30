@@ -22,7 +22,7 @@ This toolkit is built around the GISAID SARS-COV-2 genomic alignment file. In or
 
 
 ## Instructions:
-### General instructions:
+## General instructions:
 Prior to running the tools described below, users should modify the indicated lines of the masterscipt, EpiTrack.sh.
 Specifically, the following variables should be provided:
 
@@ -32,7 +32,7 @@ Specifically, the following variables should be provided:
 -  ORIGINAL_FILE: full path to the directory where the peptide specific files are stored (following processing by the Generating_Peptide_Files.sh script)
 -  WORKING_DIRCT: full path to the directory where the EpiTrack suite is being run
 
-### ExtractPeptide_annotated.sh
+## Extraction of peptide data
 This function will access the complete GISAID dataset (full MSA and metadata), extract MSA positions corresponding to the provided peptides of interest, and store the peptide-specific MSA + metadata files in folders named after the peptides of interest. peptide-specific folders will be stored within a folder named ExtractedPeptide, found within the same directory where the full GISAID msa + metadata file is stored.
 
 Preset Inputs (set in EpiTrack.sh script): 
@@ -43,7 +43,10 @@ Preset Inputs (set in EpiTrack.sh script):
 commandline inputs:
 -   peptide list, in amino acids. Ex: KLPDDFTGC TLNDLNETL NAPRITFGGP VPYNMRVI...
 
-### Alternative_peptide_tracker
+Suggested command:
+./EPITRACK.sh -s ExtractPeptide_annotated.sh -l KLPDDFTGC TLNDLNETL NAPRITFGGP VPYNMRVI...
+
+## Alternative peptide tracker
 
 This function temporally monitors the diversification of selected T cell epitopes and assesses the prevalence of top alternative epitopes.
 
@@ -60,7 +63,7 @@ Suggested command:
 ./EPITRACK.sh --script Alternative_peptide_tracker.sh -z yes -o RESULTS_ALTERNATIVE_PEPTIDES
 
 
-### Peptide_Lineage_Tracker
+## Peptide Lineage Tracker
 This function performs an in-depth analysis of the top lineages/Variants Of Concerns (VOCs) responsible for the diversification of selected epitopes
 
 Preset Inputs (set in EpiTrack.sh script): 
@@ -75,7 +78,7 @@ suggested command:
 ./EPITRACK.sh --script Alternative_peptide_tracker.sh -o RESULTS_LINEAGE_TRACKING
 
 
-### Peptide_Map_Generator
+## Peptide Map Generator
 This function enable the geo-temporal visualization of peptide diversification.
 
 Preset Inputs (set in EpiTrack.sh script): 
@@ -90,5 +93,7 @@ commandline inputs:
 
 suggested command:
 ./EPITRACK.sh --script Peptide_Map_Generator.sh -g Europe -s yes -o RESULTS_MAP
+
+
 
 
