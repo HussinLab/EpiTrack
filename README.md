@@ -35,65 +35,64 @@ Specifically, the following variables should be provided:
 ## Extraction of peptide data
 This function will access the complete GISAID dataset (full MSA and metadata), extract MSA positions corresponding to the provided peptides of interest, and store the peptide-specific MSA + metadata files in folders named after the peptides of interest. peptide-specific folders will be stored within a folder named ExtractedPeptide, found within the same directory where the full GISAID msa + metadata file is stored.
 
-Preset Inputs (set in EpiTrack.sh script): 
+### Preset Inputs (set in EpiTrack.sh script): 
 -	FOLDER: full path to folder containing EpiTrack scripts
 -   GISAID_LATEST_BUILD_FOLDER: full path to directory where latest GISAID build is stored
 -   GISAID_LATEST_BUILD_FILENAME: name of file with complete GISAID msa + metadata dataset
 
-commandline inputs:
+### commandline inputs:
 -   peptide list, in amino acids. Ex: KLPDDFTGC TLNDLNETL NAPRITFGGP VPYNMRVI...
 
-Suggested command:
+### Suggested command:
 ./EPITRACK.sh -s ExtractPeptide_annotated.sh -l KLPDDFTGC TLNDLNETL NAPRITFGGP VPYNMRVI...
 
 ## Alternative peptide tracker
 
 This function temporally monitors the diversification of selected T cell epitopes and assesses the prevalence of top alternative epitopes.
 
-Preset Inputs (set in EpiTrack.sh script): 
+### Preset Inputs (set in EpiTrack.sh script): 
 -	ORIGINAL_FILE: full path to epitope-specific GISAID msa and metadata
 -	FOLDER: full path to folder containing EpiTrack scripts
 -   WORKING_DIRCT: full path to current working directory
 
-commandline inputs:
+### commandline inputs:
 -	-z | -zoomed: no to vizualize full breadth of alternative and wild-type peptides; yes to view bottom 10% of alternative epitopes
 -	-o | --Output_File: Name of folder where results are to be stored. This folder will be saved in the working directory.
 
-Suggested command: 
+### Suggested command: 
 ./EPITRACK.sh --script Alternative_peptide_tracker.sh -z yes -o RESULTS_ALTERNATIVE_PEPTIDES
 
 
 ## Peptide Lineage Tracker
 This function performs an in-depth analysis of the top lineages/Variants Of Concerns (VOCs) responsible for the diversification of selected epitopes
 
-Preset Inputs (set in EpiTrack.sh script): 
+### Preset Inputs (set in EpiTrack.sh script): 
 -	ORIGINAL_FILE: full path to epitope-specific GISAID msa and metadata
 -	FOLDER: full path to folder containing EpiTrack scripts
 -   WORKING_DIRCT: full path to current working directory
 
-commandline inputs:
+### commandline inputs:
 -	-o | --Output_File: Name of folder where results are to be stored. This folder will be saved in the working directory.
 
-suggested command: 
+### suggested command: 
 ./EPITRACK.sh --script Alternative_peptide_tracker.sh -o RESULTS_LINEAGE_TRACKING
 
 
 ## Peptide Map Generator
 This function enable the geo-temporal visualization of peptide diversification.
 
-Preset Inputs (set in EpiTrack.sh script): 
+### Preset Inputs (set in EpiTrack.sh script): 
 -	ORIGINAL_FILE: full path to epitope-specific GISAID msa and metadata
 -	FOLDER: full path to folder containing EpiTrack scripts
 -   WORKING_DIRCT: full path to current working directory
 
-commandline inputs:
+### commandline inputs:
 -   -g | --Geography: Europe or Worldwide
 -   -s | --Peptide_Specific: no to analyse all alternative epitopes for every single epitope given; yes to analyze specific alternative epitopes of interest
 -	-o | --Output_File: Name of folder where results are to be stored. This folder will be saved in the working directory.
 
-suggested command:
+### suggested command:
 ./EPITRACK.sh --script Peptide_Map_Generator.sh -g Europe -s yes -o RESULTS_MAP
-
 
 
 
