@@ -4,18 +4,18 @@
 
 
 This suite was developped to facilitate the development of T-Cell-centric SARS-CoV-2 vaccines by enabling the geo-temporal monitoring of the diversification of SARS-CoV-2 T cell epitopes. This is done by levaraging the vast array of SARS-CoV-2-specific genomic data provided by GISAID. Together, the tools available here can:
--	Temporally monitor the diversification of selected T cell epitopes and assess the prevalence of top alternative epitopes 
--	Perform an in-depth analysis of the top lineages/Variants Of Concerns (VOCs) responsible for the diversification of selected epitopes
--	enable the geo-temporal visualization of peptide diversification.
+-	 Temporally monitor the diversification of selected T cell epitopes and assess the prevalence of top alternative epitopes 
+-	 Perform an in-depth analysis of the top lineages/Variants Of Concerns (VOCs) responsible for the diversification of selected epitopes
+-	 enable the geo-temporal visualization of peptide diversification.
 
 
 #### External dependencies:
--	pandas 
--	seaborn & matplotlib
--	numpy
--	geopandas
--   sys
--   os
+-	 pandas 
+-	 seaborn & matplotlib
+-	 numpy
+-	 geopandas
+-  sys
+-  os
 
 #### Required dataset download:
 This toolkit is built around the GISAID SARS-COV-2 genomic alignment file. In order to run the script, users must download the codon-based alignment of sequences from GISAID (named MSAcodonXXXX, where XXXX refers to the build ID) as well as its corresponding metadata, and merge them. Entries with incomplete year/month dates, as well as entries with non-human hosts should be removed. While many informations are available with the metadata, the metadata information crucial to the tools described below are the date, continent, country, and pango-lineage.
@@ -36,15 +36,33 @@ Specifically, the following variables should be provided:
 This function will access the complete GISAID dataset (full MSA and metadata), extract MSA positions corresponding to the provided peptides of interest, and store the peptide-specific MSA + metadata files in folders named after the peptides of interest. peptide-specific folders will be stored within a folder named ExtractedPeptide, found within the same directory where the full GISAID msa + metadata file is stored.
 
 ### Preset Inputs (set in EpiTrack.sh script): 
--	FOLDER: full path to folder containing EpiTrack scripts
--   GISAID_LATEST_BUILD_FOLDER: full path to directory where latest GISAID build is stored
--   GISAID_LATEST_BUILD_FILENAME: name of file with complete GISAID msa + metadata dataset
+-	 FOLDER: full path to folder containing EpiTrack scripts
+-  GISAID_LATEST_BUILD_FOLDER: full path to directory where latest GISAID build is stored
+-  GISAID_LATEST_BUILD_FILENAME: name of file with complete GISAID msa + metadata dataset
 
 ### commandline inputs:
 -   peptide list, in amino acids. Ex: KLPDDFTGC TLNDLNETL NAPRITFGGP VPYNMRVI...
 
 ### Suggested command:
 ./EPITRACK.sh -s ExtractPeptide_annotated.sh -l KLPDDFTGC TLNDLNETL NAPRITFGGP VPYNMRVI...
+
+## Pandemic Specific Conservation
+
+This function assesses the overall level of diversification of input peptides when compared to a control consisting of end-to-end 9mers spanning the complete SARS-COV-2 proteome.
+
+### Preset Inputs (set in EpiTrack.sh script): 
+-	 ORIGINAL_FILE: full path to epitope-specific GISAID msa and metadata
+-	 FOLDER: full path to folder containing EpiTrack scripts
+-  WORKING_DIRCT: full path to current working directory
+
+### commandline inputs:
+-	 -o | --Output_File: Name of folder where results are to be stored. This folder will be saved in the working directory.
+
+### Suggested command: 
+./EPITRACK.sh --script Pandemic_Specific_Conservation.sh -z yes -o RESULTS_PANDEMIC_SPECIFIC_CONSERVATION
+
+### Output:
+![alt text](Git_Images/Pandemic_Specific_Conservation.png)
 
 ## Alternative peptide tracker
 
