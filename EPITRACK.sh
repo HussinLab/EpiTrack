@@ -22,26 +22,42 @@ key="$1"
 
 case $key in
     -h|--help)
-    echo "--script Alternative_peptide_tracker.sh"
     echo ""
-    echo "inputs:"
-    echo "  -z | --Zoomed: File of raw mutations in .txt format."
+    echo "__________________________________________________"
     echo ""
+    echo "                   INSTRUCTIONS"
+    echo "__________________________________________________"
     echo ""
-    echo "--script Peptide_Lineage_Tracker.sh"
+    echo "-s | --script Alternative_peptide_tracker.sh"
     echo ""
-    echo ""
-    echo "--script Peptide_Map_Generator.sh"
-    echo ""
-    echo "inputs:"
-    echo "  -g | --Geography: netMHCOutput"
-    echo "  -p | --Peptide_Specific: yes or no"
+    echo "        inputs:"
+    echo "            -z | --Zoomed: File of raw mutations in .txt format."
     echo ""
     echo ""
-    echo "--script ExtractPeptide_annotated.sh"
+    echo "-s | --script Peptide_Lineage_Tracker.sh"
     echo ""
-    echo "inputs:"
-    echo "  -l | --PeptideList: list of peptides separated by  space. Ex: KLPDDFTGC TLNDLNETL NAPRITFGGP VPYNMRVI..."
+    echo ""
+    echo "-s | --script Peptide_Map_Generator.sh"
+    echo ""
+    echo "        inputs:"
+    echo "            -g | --Geography: netMHCOutput"
+    echo "            -p | --Peptide_Specific: yes or no"
+    echo ""
+    echo ""
+    echo "-s | --script ExtractPeptide_annotated.sh"
+    echo ""
+    echo "        inputs:"
+    echo "            -l | --PeptideList: list of peptides separated by  space. Ex: KLPDDFTGC TLNDLNETL NAPRITFGGP VPYNMRVI..."
+    echo ""
+    echo "-s | --script ExtractPeptide_annotated.sh"
+    echo ""
+    echo "        inputs:"
+    echo "            -l | --PeptideList: list of peptides separated by  space. Ex: KLPDDFTGC TLNDLNETL NAPRITFGGP VPYNMRVI..."
+    echo ""
+    echo "-s | --script Pandemic_Specific_Conservation.sh"
+    echo ""
+    echo "        inputs:"
+    echo "            -l | --PeptideList: list of peptides separated by  space. Ex: KLPDDFTGC TLNDLNETL NAPRITFGGP VPYNMRVI..."
     echo ""
     echo ""
     echo " -o | --Output_File: File of raw mutations in .txt format."
@@ -178,6 +194,20 @@ if [ ! -z "${Script}"  ] ; then
             done
             
              
+
+        else
+            echo "one or more arguments are missing"
+
+        fi
+    
+
+    elif [ $Script == "Pandemic_Specific_Conservation.sh" ]; then
+        echo "Running Pandemic_Specific_Conservation.sh"
+        if [ ! -z "${OUTP}" ]; then #[ ! -z "${mutFile1}"  ] && [ ! -z "${HLAs}" ] && [ ! -z "${outputFilePATH}" ] && [ ! -z "${netMHCpanPATH}" ]
+            echo "We're here"
+            echo "${OUTP}"
+
+            $FOLDER/scripts/Pandemic_Specific_Conservation/$Script $ORIGINAL_FILES $WORKING_DIRCT $OUTP $FOLDER   #sbatch --export=ARG1=$ORIGINAL_FILES,ARG2=$WORKING_DIRCT,ARG3=$OUTP,ARG4=$FOLDER
 
         else
             echo "one or more arguments are missing"
