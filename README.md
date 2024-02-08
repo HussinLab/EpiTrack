@@ -69,13 +69,13 @@ This function assesses the overall level of diversification of input peptides wh
 This function temporally monitors the diversification of selected T cell epitopes and assesses the prevalence of top alternative epitopes.
 
 ### Preset Inputs (set in EpiTrack.sh script): 
--	ORIGINAL_FILE: full path to epitope-specific GISAID msa and metadata
--	FOLDER: full path to folder containing EpiTrack scripts
--   WORKING_DIRCT: full path to current working directory
+-	 ORIGINAL_FILE: full path to epitope-specific GISAID msa and metadata
+-	 FOLDER: full path to folder containing EpiTrack scripts
+-  WORKING_DIRCT: full path to current working directory
 
 ### commandline inputs:
--	-z | -zoomed: no to vizualize full breadth of alternative and wild-type peptides; yes to view bottom 10% of alternative epitopes
--	-o | --Output_File: Name of folder where results are to be stored. This folder will be saved in the working directory.
+-	 -z | -zoomed: no to vizualize full breadth of alternative and wild-type peptides; yes to view bottom 10% of alternative epitopes
+-	 -o | --Output_File: Name of folder where results are to be stored. This folder will be saved in the working directory.
 
 ### Suggested command: 
 ./EPITRACK.sh --script Alternative_peptide_tracker.sh -z yes -o RESULTS_ALTERNATIVE_PEPTIDES
@@ -87,12 +87,12 @@ This function temporally monitors the diversification of selected T cell epitope
 This function performs an in-depth analysis of the top lineages/Variants Of Concerns (VOCs) responsible for the diversification of selected epitopes
 
 ### Preset Inputs (set in EpiTrack.sh script): 
--	ORIGINAL_FILE: full path to epitope-specific GISAID msa and metadata
--	FOLDER: full path to folder containing EpiTrack scripts
--   WORKING_DIRCT: full path to current working directory
+-	 ORIGINAL_FILE: full path to epitope-specific GISAID msa and metadata
+-	 FOLDER: full path to folder containing EpiTrack scripts
+-  WORKING_DIRCT: full path to current working directory
 
 ### commandline inputs:
--	-o | --Output_File: Name of folder where results are to be stored. This folder will be saved in the working directory.
+-	 -o | --Output_File: Name of folder where results are to be stored. This folder will be saved in the working directory.
 
 ### suggested command: 
 ./EPITRACK.sh --script Alternative_peptide_tracker.sh -o RESULTS_LINEAGE_TRACKING
@@ -104,17 +104,37 @@ This function performs an in-depth analysis of the top lineages/Variants Of Conc
 This function enable the geo-temporal visualization of peptide diversification.
 
 ### Preset Inputs (set in EpiTrack.sh script): 
--	ORIGINAL_FILE: full path to epitope-specific GISAID msa and metadata
--	FOLDER: full path to folder containing EpiTrack scripts
--   WORKING_DIRCT: full path to current working directory
+-	 ORIGINAL_FILE: full path to epitope-specific GISAID msa and metadata
+-	 FOLDER: full path to folder containing EpiTrack scripts
+-  WORKING_DIRCT: full path to current working directory
 
 ### commandline inputs:
--   -g | --Geography: Europe or Worldwide
--   -s | --Peptide_Specific: no to analyse all alternative epitopes for every single epitope given; yes to analyze specific alternative epitopes of interest
--	-o | --Output_File: Name of folder where results are to be stored. This folder will be saved in the working directory.
+-  -g | --Geography: Europe or Worldwide
+-  -s | --Peptide_Specific: no to analyse all alternative epitopes for every single epitope given; yes to analyze specific alternative epitopes of interest
+-	 -o | --Output_File: Name of folder where results are to be stored. This folder will be saved in the working directory.
 
 ### suggested command:
 ./EPITRACK.sh --script Peptide_Map_Generator.sh -g Europe -s yes -o RESULTS_MAP
+
+### Output:
+![alt text](Git_Images/Peptide_Map.png)
+
+## Junction driven non-Canonical epitopes
+This function enables the analysis of pre-processed NCBI SARS-CoV-2 sequencing libraries in order to identify deletions leading to LPYPQILLL (+1 frameshift).
+
+### Preset Inputs (set in EpiTrack.sh script): 
+-	 ORIGINAL_FILE: full path to epitope-specific GISAID msa and metadata
+-	 FOLDER: full path to folder containing EpiTrack scripts
+-  WORKING_DIRCT: full path to current working directory
+-  File containing the full list of deletions in the region spanning the genomic positions 23,623 and 23,693. The file should have the following format, consisting of three columns (Pos, Del, Sample) corresponding to the start position of the deletion, the deletion information (number of reads|deletion sequence) and the library ID, respectively. An example is given below:
+
+![alt text](Git_Images/Peptide_Map.png)
+
+### commandline inputs:
+-	-o | --Output_File: Name of folder where results are to be stored. This folder will be saved in the working directory.
+
+### suggested command:
+./EPITRACK.sh --script Junction_driven_nonCanonical_epitopes.sh -o Figures
 
 ### Output:
 ![alt text](Git_Images/Peptide_Map.png)
