@@ -128,7 +128,7 @@ This function enables the analysis of pre-processed NCBI SARS-CoV-2 sequencing l
 -  WORKING_DIRCT: full path to current working directory
 -  File containing the full list of deletions in the region spanning the genomic positions 23,623 and 23,693. The file should have the following format, consisting of three columns (Pos, Del, Sample) corresponding to the start position of the deletion, the deletion information (number of reads|deletion sequence) and the library ID, respectively. An example is given below:
 
-![alt text](Git_Images/Peptide_Map.png)
+![alt text](Git_Images/Deletion_analysis_input.png)
 
 ### commandline inputs:
 -	-o | --Output_File: Name of folder where results are to be stored. This folder will be saved in the working directory.
@@ -137,5 +137,5 @@ This function enables the analysis of pre-processed NCBI SARS-CoV-2 sequencing l
 ./EPITRACK.sh --script Junction_driven_nonCanonical_epitopes.sh -o Figures
 
 ### Output:
-![alt text](Git_Images/Peptide_Map.png)
+![alt text](Git_Images/Junction_driven_frameshift.png)
 
