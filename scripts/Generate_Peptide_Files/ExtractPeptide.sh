@@ -1,26 +1,21 @@
 #!/bin/bash
 
-######wp=/lustre06/project/6065672/shared/covid-19/GISAID #folder with all GISAID version
+wp=/lustre06/project/6065672/shared/covid-19/GISAID
 
-######lastgisaid=$(find $wp | grep PeptideExtracted$ | rev | cut -f2- -d/ | rev | tail -n 1) #wp finds searches all files and directories in wp, grabs those with PeptideExtracted, rev reverses it, cut -f2- -d keeps all fields except for the first one (PeptideExtracted), rev revereses again, tail -n 1 selects only the last entry (given multiple GISAID builds) 
+lastgisaid=$(find $wp | grep PeptideExtracted$ | rev | cut -f2- -d/ | rev | tail -n 1) #Can change to location of 
 
-lastgisaid=$1
+scripts=$wp/code/cov19-MSA-tools/scripts #Change This to file with script
+ref=$scripts/NC_045512.2.fasta #put this is file with script
 
-#######scripts=$wp/code/cov19-MSA-tools/scripts #directory with scripts
-scripts=$2"/scripts/Generate_Peptide_Files"
-ref=$scripts/NC_045512.2.fasta #points to the reference sequence
+peptide_ref=$1
 
-peptide_ref=$3 #$1 #peptide for which we want to create files (in a.a.)
 
-OUTPUT_FOLDER=$5
-mkdir $lastgisaid"/"$OUTPUT_FOLDER
-
-for i in 1 2 3; do #Here, we will find the nucleotide sequence as well as positions of the peptide
+for i in 1 2 3; do
 	$scripts/translate $(cat $ref | tail -n 1 | cut -c$i-) |
 	grep -bo $peptide_ref | cut -f1 -d: | awk -v i=$i '{print $1*3+i}';
-done > $lastgisaid/$OUTPUT_FOLDER/.temp$peptide_ref.lookup  #PeptideExtracted
+done > $lastgisaid/PeptideExtracted/.temp$peptide_ref.lookup
 
-nbfound=$(wc -l $lastgisaid/$OUTPUT_FOLDER/.temp$peptide_ref.lookup | cut -f1 -d' ') #PeptideExtracted
+nbfound=$(wc -l $lastgisaid/PeptideExtracted/.temp$peptide_ref.lookup | cut -f1 -d' ')
 
 echo $peptide_ref was found $nbfound time in the reference: > /dev/stderr
 
@@ -32,10 +27,10 @@ then
 fi
 
 
-cuttodo=$( (echo $peptide_ref; cat  $lastgisaid/$OUTPUT_FOLDER/.temp$peptide_ref.lookup) | #PeptideExtracted
+cuttodo=$( (echo $peptide_ref; cat  $lastgisaid/PeptideExtracted/.temp$peptide_ref.lookup) |
 	awk 'NR==1{l=length($1)*3}NR==2{printf "%i-%i",$1,$1+l-1}' )
 
-peptide_wp=$lastgisaid/$OUTPUT_FOLDER/$peptide_ref  #PeptideExtracted
+peptide_wp=$lastgisaid/PeptideExtracted/$peptide_ref
 
 
 
@@ -56,7 +51,7 @@ mkdir $peptide_wp
 echo Extracting the positions $cuttodo from the last GISAID version in : > /dev/stderr
 echo $peptide_wp > /dev/stderr
 echo  > /dev/stderr
-cat $lastgisaid/$4 | cut -c$cuttodo,29892- | awk 'NR%1000000==0{printf "%i lines processed\n",NR > "/dev/stderr"}{print}' > $peptide_wp/full.data  #msaCodon_*_final.data
+cat $lastgisaid/msaCodon_*_final.data | cut -c$cuttodo,29892- | awk 'NR%1000000==0{printf "%i lines processed\n",NR > "/dev/stderr"}{print}' > $peptide_wp/full.data
 
 
 #Translate all nucleotides
@@ -69,10 +64,10 @@ done > $peptide_wp/$peptide_ref.msu
 
 
 #Create the file
-echo Keep all amino acid sequences present at least 200 times : > /dev/stderr  #1000
+echo Keep all amino acid sequences present at least 1000 times : > /dev/stderr
 echo $peptide_wp/$peptide_ref.msu.best > /dev/stderr
 echo  > /dev/stderr
-cat $peptide_wp/$peptide_ref.msu | awk '{t[$3]+=$1;seq[$3]=seq[$3]"|^"$2}END{for(i in t){print i,t[i],seq[i]}}' | awk '$2>200' |sort -k2,2nr > $peptide_wp/$peptide_ref.msu.best; #1000
+cat $peptide_wp/$peptide_ref.msu | awk '{t[$3]+=$1;seq[$3]=seq[$3]"|^"$2}END{for(i in t){print i,t[i],seq[i]}}' | awk '$2>1000' |sort -k2,2nr > $peptide_wp/$peptide_ref.msu.best; 
 
 
 pid_to_wait=""

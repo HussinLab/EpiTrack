@@ -12,15 +12,13 @@ ref=$scripts/NC_045512.2.fasta #points to the reference sequence
 
 peptide_ref=$3 #$1 #peptide for which we want to create files (in a.a.)
 
-OUTPUT_FOLDER=$5
-mkdir $lastgisaid"/"$OUTPUT_FOLDER
 
 for i in 1 2 3; do #Here, we will find the nucleotide sequence as well as positions of the peptide
 	$scripts/translate $(cat $ref | tail -n 1 | cut -c$i-) |
 	grep -bo $peptide_ref | cut -f1 -d: | awk -v i=$i '{print $1*3+i}';
-done > $lastgisaid/$OUTPUT_FOLDER/.temp$peptide_ref.lookup  #PeptideExtracted
+done > $lastgisaid/PeptideExtracted/.temp$peptide_ref.lookup
 
-nbfound=$(wc -l $lastgisaid/$OUTPUT_FOLDER/.temp$peptide_ref.lookup | cut -f1 -d' ') #PeptideExtracted
+nbfound=$(wc -l $lastgisaid/PeptideExtracted/.temp$peptide_ref.lookup | cut -f1 -d' ')
 
 echo $peptide_ref was found $nbfound time in the reference: > /dev/stderr
 
@@ -32,10 +30,10 @@ then
 fi
 
 
-cuttodo=$( (echo $peptide_ref; cat  $lastgisaid/$OUTPUT_FOLDER/.temp$peptide_ref.lookup) | #PeptideExtracted
+cuttodo=$( (echo $peptide_ref; cat  $lastgisaid/PeptideExtracted/.temp$peptide_ref.lookup) |
 	awk 'NR==1{l=length($1)*3}NR==2{printf "%i-%i",$1,$1+l-1}' )
 
-peptide_wp=$lastgisaid/$OUTPUT_FOLDER/$peptide_ref  #PeptideExtracted
+peptide_wp=$lastgisaid/PeptideExtracted/$peptide_ref
 
 
 
@@ -69,10 +67,10 @@ done > $peptide_wp/$peptide_ref.msu
 
 
 #Create the file
-echo Keep all amino acid sequences present at least 200 times : > /dev/stderr  #1000
+echo Keep all amino acid sequences present at least 1000 times : > /dev/stderr
 echo $peptide_wp/$peptide_ref.msu.best > /dev/stderr
 echo  > /dev/stderr
-cat $peptide_wp/$peptide_ref.msu | awk '{t[$3]+=$1;seq[$3]=seq[$3]"|^"$2}END{for(i in t){print i,t[i],seq[i]}}' | awk '$2>200' |sort -k2,2nr > $peptide_wp/$peptide_ref.msu.best; #1000
+cat $peptide_wp/$peptide_ref.msu | awk '{t[$3]+=$1;seq[$3]=seq[$3]"|^"$2}END{for(i in t){print i,t[i],seq[i]}}' | awk '$2>1000' |sort -k2,2nr > $peptide_wp/$peptide_ref.msu.best; 
 
 
 pid_to_wait=""
