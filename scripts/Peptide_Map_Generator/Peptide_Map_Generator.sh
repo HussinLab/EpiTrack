@@ -23,6 +23,8 @@ SCRIPT=$5 #"NOT_Peptide_Specific" #Peptide_Specific
 
 Script_Folder=$6
 
+GEOGRAPHY=$1
+
 cd $ORIGINAL_FILES #Go to raph folder where original files are stored      ####AADLDDFSKQLQ
 
 for FOLDER in *; do #Iterate through folders (for each peptides)
@@ -33,18 +35,18 @@ for FOLDER in *; do #Iterate through folders (for each peptides)
 	
 	for file in *.data; do  #Iterate through files of the folder
 
-	    cat $file | cut -f3,4,12 | sort | uniq -c > $WORKING_DIRCT"/"$FOLDER"/"$file".csv" #for each file, extract the proper info and store in working directory of folder as csv    #| uniq -c   | tr " " "," #
+	    cat $file | cut -f3,4,5 | sort | uniq -c > $WORKING_DIRCT"/"$FOLDER"/"$file".csv" # 12 for each file, extract the proper info and store in working directory of folder as csv    #| uniq -c   | tr " " "," #
 	done
 
 	cd $WORKING_DIRCT"/"$FOLDER #Go to the peptide folder in wrking directory
 
-	#########ls *data.csv > FILES.txt #store all files into FILTE.txt for python program to access
+	ls *data.csv > FILES.txt #store all files into FILTE.txt for python program to access
 
 
 	echo "We're here"
     
 
-    python3 $Script_Folder/scripts/Peptide_Map_Generator/Generate_WorldMaps_Peptide_Specific_CLEANED_UP.py FILES.txt $WORKING_DIRCT"/"$FOLDER $FOLDER $WORKING_DIRCT"/"$Output_directory $SCRIPT
+    python3 $Script_Folder/scripts/Peptide_Map_Generator/Generate_WorldMaps_Peptide_Specific_yaynay_CLEANED_UP.py FILES.txt $WORKING_DIRCT"/"$FOLDER $FOLDER $WORKING_DIRCT"/"$Output_directory $SCRIPT $GEOGRAPHY
 
     cd $ORIGINAL_FILES
 
