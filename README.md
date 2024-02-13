@@ -27,8 +27,8 @@ Prior to running the tools described below, users should modify the indicated li
 Specifically, the following variables should be provided:
 
 -  FOLDER: full path to the directory containing all EpiTrack files
--  GISAID_LATEST_BUILD_FOLDER: full path to the directory where the GISAID files should be stored
--  GISAID_LATEST_BUILD_FILENAME: name of the file featuring the GISAID msa + metadate
+-  DATASET_LATEST_BUILD_FOLDER: full path to the directory where the original data files (such as the GISAID dataset, or the example Virusseq dataset provided in this GITHUB) should be stored
+-  DATASET_LATEST_BUILD_FILENAME: name of the file featuring the original data msa + metadate
 -  ORIGINAL_FILE: full path to the directory where the peptide specific files are stored (following processing by the Generating_Peptide_Files.sh script)
 -  WORKING_DIRCT: full path to the directory where the EpiTrack suite is being run
 
@@ -37,11 +37,12 @@ This function will access the complete GISAID dataset (full MSA and metadata), e
 
 ### Preset Inputs (set in EpiTrack.sh script): 
 -	 FOLDER: full path to folder containing EpiTrack scripts
--  GISAID_LATEST_BUILD_FOLDER: full path to directory where latest GISAID build is stored
--  GISAID_LATEST_BUILD_FILENAME: name of file with complete GISAID msa + metadata dataset
+-  DATASET_LATEST_BUILD_FOLDER: full path to directory where latest GISAID build is stored
+-  DATASET_LATEST_BUILD_FILENAME: name of file with complete GISAID msa + metadata dataset
 
 ### commandline inputs:
--   peptide list, in amino acids. Ex: KLPDDFTGC TLNDLNETL NAPRITFGGP VPYNMRVI...
+-	 -o | --Output_File: Name of folder where results are to be stored. It will be found in the DATASET_LATEST_BUILD_FOLDER
+-  -l | --PeptideList: list of peptides (no commas, in quotation marks) separated by space. Ex: "KLPDDFTGC TLNDLNETL NAPRITFGGP VPYNMRVI..."
 
 ### Suggested command:
 ./EPITRACK.sh -s ExtractPeptide_annotated.sh -l KLPDDFTGC TLNDLNETL NAPRITFGGP VPYNMRVI...
@@ -57,9 +58,10 @@ This function assesses the overall level of diversification of input peptides wh
 
 ### commandline inputs:
 -	 -o | --Output_File: Name of folder where results are to be stored. This folder will be saved in the working directory.
+-  -l | --PeptideList: list of peptides (no commas, in quotation marks) separated by space. Ex: "KLPDDFTGC TLNDLNETL NAPRITFGGP VPYNMRVI..."
 
 ### Suggested command: 
-./EPITRACK.sh --script Pandemic_Specific_Conservation.sh -z yes -o RESULTS_PANDEMIC_SPECIFIC_CONSERVATION
+./EPITRACK.sh --script Pandemic_Specific_Conservation.sh -o RESULTS_PANDEMIC_SPECIFIC_CONSERVATION
 
 ### Output:
 ![alt text](Git_Images/Pandemic_Specific_Conservation.png)
@@ -74,7 +76,7 @@ This function temporally monitors the diversification of selected T cell epitope
 -  WORKING_DIRCT: full path to current working directory
 
 ### commandline inputs:
--	 -z | -zoomed: no to vizualize full breadth of alternative and wild-type peptides; yes to view bottom 10% of alternative epitopes
+-	 -z | -zoomed: no to vizualize full breadth of alternative and wild-type peptides; yes to view bottom 20% of alternative epitopes
 -	 -o | --Output_File: Name of folder where results are to be stored. This folder will be saved in the working directory.
 
 ### Suggested command: 
@@ -109,12 +111,17 @@ This function enable the geo-temporal visualization of peptide diversification.
 -  WORKING_DIRCT: full path to current working directory
 
 ### commandline inputs:
--  -g | --Geography: Europe or Worldwide
--  -s | --Peptide_Specific: no to analyse all alternative epitopes for every single epitope given; yes to analyze specific alternative epitopes of interest
+-  -g | --Geography: Region to visualize. "Worldwide" provides complete world map; "Europe", "Asia", "Africa", "NorthAmerica", "Oceania", "SouthAmerica" visualize these regions, respectively; 
+-  -p | --Peptide_Specific: no to analyse all alternative epitopes for every single epitope given; If yes, provide sequence of alternative peptide followed by its unmutated counterpart for the command -p; example: "NALRITFGGP,NAPRITFGGP"
+       ****** The Peptide_Specific function will only work if there is more than one alternative peptide ********
 -	 -o | --Output_File: Name of folder where results are to be stored. This folder will be saved in the working directory.
 
 ### suggested command:
-./EPITRACK.sh --script Peptide_Map_Generator.sh -g Europe -s yes -o RESULTS_MAP
+All alternative peptides:
+./EPITRACK.sh --script Peptide_Map_Generator.sh -g Worldwide -p no -o RESULTS_MAP
+
+Specific alternative peptide (Example NALRITFGGP, alternative peptide of NAPRITFGGP):
+./EPITRACK.sh --script Peptide_Map_Generator.sh -g Worldwide -p "NALRITFGGP,NAPRITFGGP" -o RESULTS_MAP
 
 ### Output:
 ![alt text](Git_Images/Peptide_Map.png)
@@ -138,4 +145,63 @@ This function enables the analysis of pre-processed NCBI SARS-CoV-2 sequencing l
 
 ### Output:
 ![alt text](Git_Images/Junction_driven_frameshift.png)
+
+
+# EXAMPLE DATASET AND RESULTS FOR GENERAL USE
+## Example dataset
+The dataset utilized to generate the analyses was very large (>400GB), and consisted on the complete GISAID SARS-CoV-2-specific dataset as of October 2023 (14.6 million SARS-CoV-2 sequences). While users may download that dataset and follow the instructions above to replicate all analyses shown (also found in the associated manuscript) given appropriate GISAID access, the EPITRACK tool can be used on any dataset containing the following information:
+- Viral sequence (all analyses)
+- Virus collection date (Alternative peptide tracker; Peptide Map Generator)
+- Sample geographical origin (Continent, Country) (Peptide Map Generator)
+
+To allow users to run the script, we provide an small example dataset consisting of 10,000 viral sequences acquired from the Canada-hosted, open-source, data-sharing platform Virusseq (https://virusseq-dataportal.ca/). The example given pertains to samples specific to canada, and contains Viral Sequences, collection dates, and sample continent/country of origin.
+
+## Analyzing the example dataset with EpiTrack
+Ensure that the directories found at the top of the EPITRACK.sh script (above the "DO NOT CHANGE CODE BELOW THIS LINE" indication) are set to their respective directories, as indicated below:
+
+-  FOLDER: full path to the directory containing all EpiTrack files
+-  DATASET_LATEST_BUILD_FOLDER: full path to the directory where the example data file, titled VirusSeq_SubSampling10K.data, should be stored
+-  DATASET_LATEST_BUILD_FILENAME: name of the example data file (VirusSeq_SubSampling10K.data)
+-  ORIGINAL_FILE: full path to the directory where the peptide specific files are stored (following processing by the Generating_Peptide_Files.sh script)
+-  WORKING_DIRCT: full path to the directory where the EpiTrack suite is being run
+
+The example dataset can be then analyzed using EpiTrack by following the instructions above for each of the functions (see **Instructions** section above).
+
+## Expected results
+## Extraction of peptide data
+To replicate the results obtained in this example, use the following command:
+./EPITRACK.sh -s ExtractPeptide_annotated_Custom_output.sh -l "NAPRITFGGP SPRRARSVA" -o ExtractedPeptide_Virusseq
+
+### Expected output
+
+
+## Alternative peptide tracker
+To replicate the results obtained in this example, use the following command:
+./EPITRACK.sh -s Alternative_peptide_tracker.sh -z no -o RESULTS_ALTERNATIVE_PEPTIDES
+
+### Expected output
+
+
+## Pandemic Specific Conservation
+To replicate the results obtained in this example, use the following command:
+./EPITRACK.sh -s Pandemic_Specific_Conservation.sh -o RESULTS_PANDEMIC_SPECIFIC_CONSERVATION
+
+### Expected output
+
+
+## Peptide Map Generator
+To replicate the results obtained in this example, use the following command:
+./EPITRACK.sh -s Peptide_Map_Generator.sh -g WorldWide -s -no -o RESULTS_MAP
+
+### Expected output
+
+
+## Peptide Lineage Tracker
+To replicate the results obtained in this example, use the following command:
+./EPITRACK.sh -s Alternative_peptide_tracker.sh -o RESULTS_LINEAGE_TRACKING
+
+
+### Expected output
+
+
 
