@@ -64,7 +64,7 @@ ls *.msu > FILES.txt #store all files into FILTE.txt for python program to acces
 #echo "We're here"
 
 
-python3 $Script_Folder/scripts/Pandemic_Specific_Conservation/Create_RAPH_Fig_input_Cleaned_up.py FILES.txt $WORKING_DIRCT"/"$Output_directory"/" $TEMP_directory $Script_Folder/scripts/Pandemic_Specific_Conservation/  #$FOLDER $FOLDER $Output_directory #Right_Format_Events_binding_affinity_immunity_Combine_All_Alternative_peptides.py
+python3 $Script_Folder/scripts/Pandemic_Specific_Conservation/Create_RAPH_Fig_input_Cleaned_up_Generalized.py FILES.txt $WORKING_DIRCT"/"$Output_directory"/" $TEMP_directory $Script_Folder/scripts/Pandemic_Specific_Conservation/  #$FOLDER $FOLDER $Output_directory #Right_Format_Events_binding_affinity_immunity_Combine_All_Alternative_peptides.py
 
     
 
