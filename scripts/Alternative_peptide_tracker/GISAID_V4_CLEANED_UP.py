@@ -124,10 +124,13 @@ def print_lineplot(PROPORTION_frame, EPITOPE, COLORSCHEME):
         
         ##axes[0].set_ylim(0, 1000000)
         
-        if EPITOPE in ['RANNTKGSL_perm']:
+        ################if EPITOPE in ['RANNTKGSL_perm']:
+            ################axes[1].set_ylim(0, 0.2)
+        ################else:
+            ################axes[1].set_ylim(0, 0.05)
+        
+        if sys.argv[5].lower() == 'yes':
             axes[1].set_ylim(0, 0.2)
-        else:
-            axes[1].set_ylim(0, 0.05)
         #elif EPITOPE in ['HTTDPSFLGR_perm']:
         #    axes[1].set_ylim(0, 0.2)
         '''
@@ -219,7 +222,7 @@ def Convert_to_proportion(file, PEPTIDE):
                 frame_T.insert(loc = 23, column = column, value = REFS)
                 print('THIS IS APRITFGGP')
             else:
-                frame_T.insert(loc = count, column = column, value = REFS)
+                frame_T.insert(loc = len(frame_T.columns.values), column = column, value = REFS) #count
                 print('THIS IS OTHER')
         count += 1
 

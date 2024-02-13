@@ -29,7 +29,7 @@ for FOLDER in *; do #Iterate through folders (for each peptides)
 	
     for file in *.data; do  #Iterate through files of the folder
         echo $file
-        cat $file | cut -f20 | sort | uniq -c > $WORKING_DIRCT"/"$FOLDER"/"$file".csv" #for each file, extract the proper info and store in working directory of folder as csv    #| uniq -c   | tr " " "," #
+        cat $file | cut -f6 | sort | uniq -c > $WORKING_DIRCT"/"$FOLDER"/"$file".csv" # 20 for each file, extract the proper info and store in working directory of folder as csv    #| uniq -c   | tr " " "," #
     done
 
     cd $WORKING_DIRCT"/"$FOLDER #Go to the peptide folder in wrking directory

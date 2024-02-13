@@ -21,6 +21,8 @@ mkdir $TEMP_directory
 
 Script_Folder=$5 #$ARG5 #$5
 
+ZOOMED=$1
+
 #mkdir  #"/home/dhamelin/projects/ctb-hussinju/shared/covid-19/Kovalchik_paper/Peptide_Temporal_analysis/MHCVal_2/NEWVACCINE_NETMHCPAN_AND_TOP_FREQS_WT_Zoomed_REDUCED_CODE_TEST/"
 
 Output_directory=$4 #$ARG4 #$4 #"/home/dhamelin/projects/ctb-hussinju/shared/covid-19/Kovalchik_paper/Peptide_Temporal_analysis/MHCVal_2/NEWVACCINE_NETMHCPAN_AND_TOP_FREQS_WT_Zoomed_REDUCED_CODE_TEST/" #subdirectory of working directory where result files are sted
@@ -50,7 +52,7 @@ ls *.tab > FILES.txt #store all files into FILTE.txt for python program to acces
 echo "We're here"
 pwd
 
-python3 $Script_Folder/scripts/Alternative_peptide_tracker/GISAID_V4_CLEANED_UP.py FILES.txt $WORKING_DIRCT"/"$Output_directory"/" $TEMP_directory $Script_Folder #$FOLDER $Output_directory #Right_Format_Events_binding_affinity_immunity_Combine_All_Alternative_peptides.py
+python3 $Script_Folder/scripts/Alternative_peptide_tracker/GISAID_V4_CLEANED_UP.py FILES.txt $WORKING_DIRCT"/"$Output_directory"/" $TEMP_directory $Script_Folder $ZOOMED #$FOLDER $Output_directory #Right_Format_Events_binding_affinity_immunity_Combine_All_Alternative_peptides.py
 
     
 

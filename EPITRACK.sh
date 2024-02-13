@@ -1,19 +1,20 @@
 #!/bin/bash
 
-#Enter path to directory with the 'scripts' folder in it. Ex: FOLDER = '/home/dhamelin/CoVescape/'
-
+#Change the following variables to the proper path/to/directories as indicated below:
+#  FOLDER: full path to the directory containing all EpiTrack files
+#  DATASET_LATEST_BUILD_FOLDER: full path to the directory where the example data file, titled Example_Data.csv, should be stored
+#  DATASET_LATEST_BUILD_FILENAME: name of the example data file (Example_Data.csv)
+#  ORIGINAL_FILE: full path to the directory where the peptide specific files are stored (following processing by the Generating_Peptide_Files.sh script)
+#  WORKING_DIRCT: full path to the directory where the EpiTrack suite is being run
 
 FOLDER="/home/dhamelin/projects/ctb-hussinju/dhamelin/MHCVal_FinalScripts_GITHUB/Mutational_dynamics_NOSBATCH"
-GISAID_LATEST_BUILD_FOLDER="/home/dhamelin/projects/ctb-hussinju/shared/covid-19/GISAID/2023_10_24"
-GISAID_LATEST_BUILD_FILENAME="msaCodon_*_final.data"
-ORIGINAL_FILES="/home/dhamelin/projects/ctb-hussinju/shared/covid-19/GISAID/2023_10_24/PeptideExtracted/"
-WORKING_DIRCT="/home/dhamelin/projects/ctb-hussinju/dhamelin/MHCVal_FinalScripts_GITHUB/MUT_DYN_T_NOSBATCH"
+DATASET_LATEST_BUILD_FOLDER="/home/dhamelin/projects/ctb-hussinju/shared/covid-19/GISAID/2023_10_24"
+DATASET_LATEST_BUILD_FILENAME="VirusSeq_SubSampling10K.data" #"msaCodon_*_final.data"
+ORIGINAL_FILES="/home/dhamelin/projects/ctb-hussinju/shared/covid-19/GISAID/2023_10_24/PeptideExtracted_Viruseq_2/" #PeptideExtracted
+WORKING_DIRCT="/home/dhamelin/projects/ctb-hussinju/dhamelin/MHCVal_FinalScripts_GITHUB/MUT_DYN_T_VIRUSSEQ_Test_two" #MUT_DYN_T_NOSBATCH
 
 
-#VIRTUAL_ENV="/home/dhamelin/projects/ctb-hussinju/dhamelin/MyEnv_Updated"
-#TEMP_directory="/perMonth_Tables/"
-
-####################################### DO NOT CHANGE CODE BELOW THIS LINE
+####################################### DO NOT CHANGE CODE BELOW THIS LINE ################################
 
 POSITIONAL=()
 while [[ $# -gt 0 ]]
@@ -31,36 +32,42 @@ case $key in
     echo "-s | --script Alternative_peptide_tracker.sh"
     echo ""
     echo "        inputs:"
-    echo "            -z | --Zoomed: File of raw mutations in .txt format."
+    echo "            -z | --Zoomed: ."
+    echo "            -o | --Output_File: Name of directory where results files will be stored"
     echo ""
     echo ""
     echo "-s | --script Peptide_Lineage_Tracker.sh"
+    echo ""
+    echo "        inputs:"
+    echo "            -o | --Output_File: Name of directory where results files will be stored"
     echo ""
     echo ""
     echo "-s | --script Peptide_Map_Generator.sh"
     echo ""
     echo "        inputs:"
     echo "            -g | --Geography: netMHCOutput"
-    echo "            -p | --Peptide_Specific: yes or no"
+    echo "            -p | --Peptide_Specific: no to analyse all alternative epitopes for every single epitope given; If yes, provide sequence of alternative"
+    echo "                                     peptide followed by its unmutated counterpart for the command -p; example: "NALRITFGGP,NAPRITFGGP" "
+    echo "                                     ****** The Peptide_Specific function will only work if there is more than one alternative peptide ********"
+    echo "            -o | --Output_File: Name of directory where results files will be stored"
     echo ""
     echo ""
-    echo "-s | --script ExtractPeptide_annotated.sh"
-    echo ""
-    echo "        inputs:"
-    echo "            -l | --PeptideList: list of peptides separated by  space. Ex: KLPDDFTGC TLNDLNETL NAPRITFGGP VPYNMRVI..."
-    echo ""
-    echo "-s | --script ExtractPeptide_annotated.sh"
+    echo "-s | --script ExtractPeptide_annotated_Custom_output.sh"   #ExtractPeptide_annotated.sh
     echo ""
     echo "        inputs:"
-    echo "            -l | --PeptideList: list of peptides separated by  space. Ex: KLPDDFTGC TLNDLNETL NAPRITFGGP VPYNMRVI..."
+    echo "            -l | --PeptideList: list of peptides (no commas, in quotation marks) separated by  space. Ex: "KLPDDFTGC TLNDLNETL NAPRITFGGP VPYNMRVI..." "
+    echo "            -o | --Output_File: Name of directory where results files will be stored"
     echo ""
     echo "-s | --script Pandemic_Specific_Conservation.sh"
     echo ""
     echo "        inputs:"
-    echo "            -l | --PeptideList: list of peptides separated by  space. Ex: KLPDDFTGC TLNDLNETL NAPRITFGGP VPYNMRVI..."
+    echo "            -l | --PeptideList: list of peptides (no commas, in quotation marks) separated by  space. Ex: "KLPDDFTGC TLNDLNETL NAPRITFGGP VPYNMRVI..." "
+    echo "            -o | --Output_File: Name of directory where results files will be stored"
+    echo ""
+    echo "-s | --script Junction_driven_nonCanonical_epitopes.sh"
     echo ""
     echo ""
-    echo " -o | --Output_File: File of raw mutations in .txt format."
+    
      
     
 
@@ -181,16 +188,16 @@ if [ ! -z "${Script}"  ] ; then
     
 
 
-    elif [ $Script == "ExtractPeptide_annotated.sh" ]; then
-        echo "Running ExtractPeptide_annotated.sh"
-        if [ ! -z "${PEPLIST}" ]; then # && [ ! -z "${OUTP}" ]
+    elif [ $Script == "ExtractPeptide_annotated_Custom_output.sh" ]; then #ExtractPeptide_annotated.sh
+        echo "Running ExtractPeptide_annotated_Custom_output.sh" #ExtractPeptide_annotated.sh
+        if [ ! -z "${PEPLIST}" ] && [ ! -z "${OUTP}" ]; then # && [ ! -z "${OUTP}" ]
             echo "We're here"
 
             for i in $PEPLIST
             do
                 echo "$i"
                 # or do whatever with individual element of the array
-                $FOLDER/scripts/Generate_Peptide_Files/$Script $GISAID_LATEST_BUILD_FOLDER $FOLDER $i $GISAID_LATEST_BUILD_FILENAME
+                $FOLDER/scripts/Generate_Peptide_Files/$Script $DATASET_LATEST_BUILD_FOLDER $FOLDER $i $DATASET_LATEST_BUILD_FILENAME $OUTP
             done
             
              
@@ -208,6 +215,20 @@ if [ ! -z "${Script}"  ] ; then
             echo "${OUTP}"
 
             $FOLDER/scripts/Pandemic_Specific_Conservation/$Script $ORIGINAL_FILES $WORKING_DIRCT $OUTP $FOLDER   #sbatch --export=ARG1=$ORIGINAL_FILES,ARG2=$WORKING_DIRCT,ARG3=$OUTP,ARG4=$FOLDER
+
+        else
+            echo "one or more arguments are missing"
+
+        fi
+    
+
+    elif [ $Script == "Junction_driven_nonCanonical_epitopes.sh" ]; then
+        echo "Running Junction_driven_nonCanonical_epitopes.sh"
+        if [ ! -z "${OUTP}" ]; then #[ ! -z "${mutFile1}"  ] && [ ! -z "${HLAs}" ] && [ ! -z "${outputFilePATH}" ] && [ ! -z "${netMHCpanPATH}" ]
+            echo "We're here"
+            echo "${OUTP}"
+
+            $FOLDER/scripts/Junction_driven_nonCanonical_epitopes/$Script $ORIGINAL_FILES $WORKING_DIRCT $OUTP $FOLDER   #sbatch --export=ARG1=$ORIGINAL_FILES,ARG2=$WORKING_DIRCT,ARG3=$OUTP,ARG4=$FOLDER
 
         else
             echo "one or more arguments are missing"
