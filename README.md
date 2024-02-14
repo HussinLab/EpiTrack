@@ -137,6 +137,9 @@ This function enables the analysis of pre-processed NCBI SARS-CoV-2 sequencing l
 
 ![alt text](Git_Images/Deletion_analysis_input.png)
 
+An example is provided in the script directory of this github (All_Data_Multiprocessed_Three_waves_DelAbove1_LongInterval.csv.gz). However, it is compressed (.gz), and must therefore uncompressed with the following command:
+ --> gunzip All_Data_Multiprocessed_Three_waves_DelAbove1_LongInterval.csv.gz
+
 ### commandline inputs:
 -	-o | --Output_File: Name of folder where results are to be stored. This folder will be saved in the working directory.
 
@@ -154,14 +157,15 @@ The dataset utilized to generate the analyses was very large (>400GB), and consi
 - Virus collection date (Alternative peptide tracker; Peptide Map Generator)
 - Sample geographical origin (Continent, Country) (Peptide Map Generator)
 
-To allow users to run the script, we provide an small example dataset consisting of 10,000 viral sequences acquired from the Canada-hosted, open-source, data-sharing platform Virusseq (https://virusseq-dataportal.ca/). The example given pertains to samples specific to canada, and contains Viral Sequences, collection dates, and sample continent/country of origin.
+To allow users to run the script, we provide an small example dataset, named "VirusSeq_SubSampling5548.data", consisting of 5,548 viral sequences acquired from the Canada-hosted, open-source, data-sharing platform Virusseq (https://virusseq-dataportal.ca/). The example given pertains to samples specific to canada, and contains Viral Sequences, collection dates, and sample continent/country of origin. This example dataset is compressed for storage purposes, and must therefore be uncompressed prior to analysis with EpiTrack. This can be done by going into the "Virusseq_Example_data" directory and running the following command:
+gunzip VirusSeq_SubSampling5548.data
 
 ## Analyzing the example dataset with EpiTrack
 Ensure that the directories found at the top of the EPITRACK.sh script (above the "DO NOT CHANGE CODE BELOW THIS LINE" indication) are set to their respective directories, as indicated below:
 
 -  FOLDER: full path to the directory containing all EpiTrack files
--  DATASET_LATEST_BUILD_FOLDER: full path to the directory where the example data file, titled VirusSeq_SubSampling10K.data, should be stored
--  DATASET_LATEST_BUILD_FILENAME: name of the example data file (VirusSeq_SubSampling10K.data)
+-  DATASET_LATEST_BUILD_FOLDER: full path to the directory where the example data file, titled VirusSeq_SubSampling5548.data, should be stored
+-  DATASET_LATEST_BUILD_FILENAME: name of the example data file (VirusSeq_SubSampling5548.data)
 -  ORIGINAL_FILE: full path to the directory where the peptide specific files are stored (following processing by the Generating_Peptide_Files.sh script)
 -  WORKING_DIRCT: full path to the directory where the EpiTrack suite is being run
 
