@@ -9,9 +9,9 @@
 
 FOLDER="/home/dhamelin/projects/ctb-hussinju/dhamelin/MHCVal_FinalScripts_GITHUB/Mutational_dynamics_NOSBATCH"
 DATASET_LATEST_BUILD_FOLDER="/home/dhamelin/projects/ctb-hussinju/shared/covid-19/GISAID/2023_10_24"
-DATASET_LATEST_BUILD_FILENAME="VirusSeq_SubSampling10K.data" #"msaCodon_*_final.data"
-ORIGINAL_FILES="/home/dhamelin/projects/ctb-hussinju/shared/covid-19/GISAID/2023_10_24/PeptideExtracted_Viruseq_2/" #PeptideExtracted
-WORKING_DIRCT="/home/dhamelin/projects/ctb-hussinju/dhamelin/MHCVal_FinalScripts_GITHUB/MUT_DYN_T_VIRUSSEQ_Test_two" #MUT_DYN_T_NOSBATCH
+DATASET_LATEST_BUILD_FILENAME="VirusSeq_SubSampling6500.data" #"msaCodon_*_final.data"
+ORIGINAL_FILES="/home/dhamelin/projects/ctb-hussinju/shared/covid-19/GISAID/2023_10_24/PeptideExtracted_Viruseq_6500/" #PeptideExtracted
+WORKING_DIRCT="/home/dhamelin/projects/ctb-hussinju/dhamelin/MHCVal_FinalScripts_GITHUB/MUT_DYN_T_VIRUSSEQ_Test_6500" #MUT_DYN_T_NOSBATCH
 
 
 ####################################### DO NOT CHANGE CODE BELOW THIS LINE ################################
@@ -32,7 +32,7 @@ case $key in
     echo "-s | --script Alternative_peptide_tracker.sh"
     echo ""
     echo "        inputs:"
-    echo "            -z | --Zoomed: ."
+    echo "            -z | --Zoomed: no to vizualize full breadth of alternative and wild-type peptides; yes to view bottom 20% of alternative epitopes."
     echo "            -o | --Output_File: Name of directory where results files will be stored"
     echo ""
     echo ""
