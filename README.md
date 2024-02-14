@@ -169,16 +169,16 @@ Ensure that the directories found at the top of the EPITRACK.sh script (above th
 -  ORIGINAL_FILE: full path to the directory where the peptide specific files are stored (following processing by the Generating_Peptide_Files.sh script)
 -  WORKING_DIRCT: full path to the directory where the EpiTrack suite is being run
 
-The example dataset can be then analyzed using EpiTrack by following the instructions above for each of the functions (see **Instructions** section above).
+The example dataset can be then analyzed using EpiTrack by following the instructions above for each of the functions (see **Instructions** section above). Below are example commands for executing each of the functions on the dataset. In parantheses are the expected runtime for analyzing the example dataset on an average computer (runtimes will vary based on the size of the dataset).
 
 ## Expected results
-## Extraction of peptide data
-To replicate the results obtained in this example, use the following command:
+## Extraction of peptide data 
+To replicate the results obtained in this example, use the following command (**10-30 seconds per peptide**):
 ./EPITRACK.sh -s ExtractPeptide_annotated_Custom_output.sh -l "NAPRITFGGP SPRRARSVA" -o ExtractedPeptide_Virusseq
 
 
 ## Alternative peptide tracker
-To replicate the results obtained in this example, use the following command (the -z command can be changed to yes to look at the bottom 20% of sequences):
+To replicate the results obtained in this example, use the following command (the -z command can be changed to yes to look at the bottom 20% of sequences) (**~1 minute**):
 ./EPITRACK.sh -s Alternative_peptide_tracker.sh -z no -o RESULTS_ALTERNATIVE_PEPTIDES
 
 ### Expected output
@@ -190,7 +190,7 @@ bottom 20% of sequences considered (-z yes option):
 
 
 ## Pandemic Specific Conservation
-To replicate the results obtained in this example, use the following command:
+To replicate the results obtained in this example, use the following command (**~1 minute**):
 ./EPITRACK.sh -s Pandemic_Specific_Conservation.sh -o RESULTS_PANDEMIC_SPECIFIC_CONSERVATION
 
 ### Expected output
@@ -198,7 +198,7 @@ To replicate the results obtained in this example, use the following command:
 
 
 ## Peptide Map Generator
-To replicate the results obtained in this example, use the following command:
+To replicate the results obtained in this example, use the following command (**~1 minute**):
 ./EPITRACK.sh -s Peptide_Map_Generator.sh -g WorldWide -s -no -o RESULTS_MAP
 
 ### Expected output
@@ -206,7 +206,7 @@ To replicate the results obtained in this example, use the following command:
 
 
 ## Peptide Lineage Tracker
-To replicate the results obtained in this example, use the following command:
+To replicate the results obtained in this example, use the following command (**~1 minute**):
 ./EPITRACK.sh -s Alternative_peptide_tracker.sh -o RESULTS_LINEAGE_TRACKING
 
 
