@@ -176,14 +176,17 @@ The example dataset can be then analyzed using EpiTrack by following the instruc
 To replicate the results obtained in this example, use the following command:
 ./EPITRACK.sh -s ExtractPeptide_annotated_Custom_output.sh -l "NAPRITFGGP SPRRARSVA" -o ExtractedPeptide_Virusseq
 
-### Expected output
-
 
 ## Alternative peptide tracker
-To replicate the results obtained in this example, use the following command:
+To replicate the results obtained in this example, use the following command (the -z command can be changed to yes to look at the bottom 20% of sequences):
 ./EPITRACK.sh -s Alternative_peptide_tracker.sh -z no -o RESULTS_ALTERNATIVE_PEPTIDES
 
 ### Expected output
+All sequences considered:
+![alt text](Git_Images/Virusseq_example_Alternative_peptides_notZoomed.png)
+
+bottom 20% of sequences considered (-z yes option):
+![alt text](Git_Images/Virusseq_example_Alternative_peptides_zoomed.png)
 
 
 ## Pandemic Specific Conservation
@@ -191,6 +194,7 @@ To replicate the results obtained in this example, use the following command:
 ./EPITRACK.sh -s Pandemic_Specific_Conservation.sh -o RESULTS_PANDEMIC_SPECIFIC_CONSERVATION
 
 ### Expected output
+![alt text](Git_Images/Virusseq_example_Pandemic-wide_cons.png)
 
 
 ## Peptide Map Generator
@@ -198,6 +202,7 @@ To replicate the results obtained in this example, use the following command:
 ./EPITRACK.sh -s Peptide_Map_Generator.sh -g WorldWide -s -no -o RESULTS_MAP
 
 ### Expected output
+![alt text](Git_Images/Virusseq_example_Map.png)
 
 
 ## Peptide Lineage Tracker
@@ -206,6 +211,7 @@ To replicate the results obtained in this example, use the following command:
 
 
 ### Expected output
+![alt text](Git_Images/Virusseq_example_lineage.png)
 
 
 
